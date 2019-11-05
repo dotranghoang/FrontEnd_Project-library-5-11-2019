@@ -1,0 +1,70 @@
+<button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModalCenter" (click)="isShowModal=true">Thêm sách</button>
+
+<br>
+<br>
+
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Tựa sách</th>
+    <th scope="col">Tác giả</th>
+    <th scope="col">Danh mục</th>
+    <th scope="col">Trạng thái</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let book of bookList">
+    <th scope="row">{{ book.id }}</th>
+    <td>{{ book.title }}</td>
+    <td>{{ book.authors }}</td>
+    <td>{{ book.category.category }}</td>
+    <td>{{ book.status.status }}</td>
+  </tr>
+
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Thêm sách</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="bookForm">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Tựa sách</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"
+            name="title" formControlName="title">
+          </div>
+          <div class="form-group">
+            <label for="authors">Tác giả</label>
+            <input type="email" class="form-control" id="authors" name="authors" formControlName="authors">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Danh mục sách</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="category" formControlName="categoryId">
+              <option *ngFor="let category of categoryList" value="{{ category.id }}"> {{ category.category }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect2">Trạng thái</label>
+            <select class="form-control" id="exampleFormControlSelect2" name="status" formControlName="statusId">
+              <option *ngFor="let status of statusList" value="{{ status.id }}"> {{ status.status }}</option>
+            </select>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button #closeModalRef type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary" (click)="saveBook(closeModalRef)">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
